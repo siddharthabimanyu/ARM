@@ -1,0 +1,25 @@
+#include<LPC21XX.H>
+ #define LED1 1<<i
+ #define LED2 1<<j
+ void delay_MS(int MS)
+{
+ int i;
+for(;MS>0;MS--)
+for(i=12000;i>0;i--);
+}
+int main()
+{
+int i, j;
+IODIR0=0xFF;
+IOSET0=0xFF;
+while(1)
+{
+for(i=0,j=7;i<7;i++,j--)
+{
+IOCLR0=LED1 | LED2;
+delay_MS(250);
+IOSET0=LED1 | LED2; 
+delay_MS(250);
+}
+}
+}
