@@ -1,0 +1,20 @@
+#include<lpc21xx.h>
+#define AL_LED 1<<0
+void delay_ms(int ms)
+{
+int i;
+for(;ms>0;ms--)
+for(i=12000;i>0;i--);
+}
+int main()
+{
+IODIR0=AL_LED;
+IOSET0=AL_LED;
+while(1)
+{
+IOCLR0=AL_LED;
+delay_ms(500);
+IOSET0=AL_LED;
+delay_ms(500);
+}
+}
