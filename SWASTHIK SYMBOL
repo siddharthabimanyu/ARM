@@ -1,0 +1,19 @@
+#include"lcd header.h"
+unsigned char CGRAM_LUT[]={0x17,0x14,0x14,0x1f,0x05,0x05,0x1d,0x00};
+void CGRAM_WRITE(void);
+int main()
+{
+LCD_INIT();
+CGRAM_WRITE();
+LCD_CMD(0X80);
+LCD_DATA(0);
+}
+void CGRAM_WRITE(void)
+{
+unsigned char i;
+LCD_CMD(0x40);
+for(i=0;i<8;i++)
+{
+LCD_DATA(CGRAM_LUT[i]);
+} 
+}
