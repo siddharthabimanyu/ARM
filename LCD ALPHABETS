@@ -1,0 +1,52 @@
+#include<lpc21xx.h>
+#include "delay.h"
+#define LCD_D 0xFF
+#define RS 1<<8
+#define E 1<<9
+void LCD_INIT(void);
+void LCD_CMD(unsigned char);
+void LCD_DATA(unsigned char);
+void LCD_STRING(unsigned char*);
+int main()
+{
+LCD_INIT();
+LCD_CMD(0x80);
+LCD_STRING("ABCDEFGHIJKLMNOPQRSTUVWXYZ");				        
+}
+void LCD_INIT(void)
+{
+IODIR0=  LCD_D | RS | E ;
+LCD_CMD(0x01);													      
+LCD_CMD(0x02);
+LCD_CMD(0x0C);
+LCD_CMD(0x38);
+}
+void LCD_CMD(unsigned char CMD)
+{
+IOPIN0=CMD;
+//IOCLR0=LCD_D;
+//IOSET0=CMD;
+IOCLR0=RS;
+IOSET0=E;
+delay_ms(2);
+IOCLR0=E;
+}
+void LCD_DATA(unsigned char D)
+{
+IOPIN0=D;
+//IOCLR0=LCD_D;
+//IOSET0=CMD;
+IOSET0=RS;
+IOSET0=E;
+delay_ms(2);
+IOCLR0=E;
+}
+void LCD_STRING(unsigned char *s)
+{
+while(*s)
+{
+LCD_DATA(*s++);
+delay_ms(500);
+LCD_CMD(0x80);
+}
+}
