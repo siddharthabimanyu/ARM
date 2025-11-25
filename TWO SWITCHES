@@ -1,0 +1,29 @@
+#include<LPC21XX.H>
+#define LED1 1<<17
+#define LED2 1<<18
+#define sw1 1<<14
+#define sw2 1<<15
+int main()
+{
+IODIR0=LED1|LED2;
+IOSET0=LED1|LED2;
+while(1)
+{
+if((((IOPIN0>>sw1)&1)==0)&&(((IOPIN0>>sw2)&1)==0))
+{
+IOSET0=LED1|LED2;
+}
+else if(((IOPIN0>>sw1)&1)==0)
+{
+IOCLR0=LED1;
+}
+else if(((IOPIN0>>sw2)&1)==0)
+{
+IOCLR0=LED2;
+}
+else
+{
+IOSET0=LED1|LED2;
+}
+}
+}
